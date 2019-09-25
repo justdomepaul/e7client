@@ -1,0 +1,14 @@
+<div class="container mtop">
+  <p>rail-station works!</p>
+  <mat-form-field>
+    <mat-label>選擇縣市</mat-label>
+    <mat-select [(value)]="city" (selectionChange)="cityChange($event)">
+      <mat-option>None</mat-option>
+      <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <pre>
+    {{TRAStations|json}}
+  </pre>
+</div>
