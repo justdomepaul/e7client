@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LiffService } from './service/liff/liff.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,17 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private liffService: LiffService,
   ) { }
   ngOnInit() {
     this.route.queryParams.subscribe(
       (v) => {
-        console.log(v);
+        console.log('queryParams', v);
+        if (v.channelID !== undefined) {
+          this.liffService.channelID = v.channelID;
+        }
         if (v.page !== undefined) {
-          this.router.navigateByUrl(v.page);
+          this.router.navigate([v.page], { queryParams: { ...v } });
         }
       }
     );

@@ -1,4 +1,35 @@
-<p>user-data works!</p>
-<pre>
-  {{liffService.profile | json}}
-</pre>
+<div class="container">
+  <p class="blockquote">惡意輸入假資料將自行承擔法律責任。</p>
+  <div *ngIf="userService.schoolUserProfile !== undefined">
+    <form name="form" #f_input="ngForm">
+      <mat-form-field>
+        <input matInput placeholder="姓名" required name="name" [(ngModel)]="userService.schoolUserProfile.name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="電話" required [pattern]="pattern_Phone" name="phone"
+          [(ngModel)]="userService.schoolUserProfile.phone">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" required class="right" style="z-index: 5;margin-bottom: -30px;"
+        (click)="file.click()">
+        <mat-icon>camera_alt</mat-icon>&nbsp;掃描學生證
+      </button>
+      <mat-form-field>
+        <input matInput placeholder="學號" name="studentId" [readOnly]="true"
+          [(ngModel)]="userService.schoolUserProfile.studentId">
+
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="!f_input.valid" class="btn-block"
+        (click)="userService.userDataSave()">
+        存檔&nbsp;<mat-icon>save</mat-icon>
+      </button>
+    </form>
+  </div>
+
+  <div id="container" [hidden]="true">
+    <canvas width="320" height="240" id="picture"></canvas>
+    <input id="Take-Picture" #file type="file" accept="image/*" (change)="imgSelect($event)" />
+    <p id="textbit"></p>
+  </div>
+</div>

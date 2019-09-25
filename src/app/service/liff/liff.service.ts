@@ -6,6 +6,7 @@ declare let liff: any;
 })
 export class LiffService {
   profile: LIFFUserProfile;
+  channelID = '';
   profileDemo: LIFFUserProfile = {
     userId: 'U8284c94aee9cabea9c96cfa37123a6b3',
     displayName: '劉振維(Mark Liu)',
@@ -16,7 +17,7 @@ export class LiffService {
     private snackBar: MatSnackBar,
   ) { }
 
-  liffInit(): Promise<any> {
+  LIFFinit(): Promise<any> {
     return new Promise<LIFFUserProfile>(resolve => {
       if (location.hostname === 'localhost') {
         this.profile = this.profileDemo;
@@ -32,5 +33,13 @@ export class LiffService {
       .then((profile) => {
         this.profile = profile;
       });
+  }
+
+  LIFFcloseWindow() {
+    if (location.hostname === 'localhost') {
+      console.log('關閉LIFF');
+      return;
+    }
+    liff.closeWindow();
   }
 }
