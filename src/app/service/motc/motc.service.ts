@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RailStationTimetable, RailStation, RailGeneralTimetable } from 'src/app/interface/rail';
+import { BusN1EstimateTime } from 'src/app/interface/bus';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,18 @@ export class MotcService {
   RailStationTimetablesRight: RailStationTimetable[] = [];
   RailStationTimetablesLeft: RailStationTimetable[] = [];
   RailGeneralTimetable: RailGeneralTimetable;
+
+  BusN1EstimateTimesRightTab = '';
+  BusN1EstimateTimesLeftTab = '';
+  BusN1EstimateTimesRight: BusN1EstimateTime[] = [];
+  BusN1EstimateTimesLeft: BusN1EstimateTime[] = [];
   constructor(
     private http: HttpClient,
   ) { }
 
   RailTRAStation(city: string) {
     // tslint:disable-next-line: max-line-length
-    this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=substring(StationAddress%2C0%2C3)%20eq%20'${city}'&$format=JSON`).subscribe(
+    this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=substring(StationAddress%2C0%2C3) eq '${city}'&$format=JSON`).subscribe(
       (v: RailStation[]) => {
         this.RailStations = v;
         this.stationID = v[0].StationID;
@@ -70,11 +76,29 @@ export class MotcService {
 
   RailTRAGeneralTimetableTrainNo(trainNo: string) {
     // tslint:disable-next-line: max-line-length
-    this.http.get<RailGeneralTimetable[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/GeneralTimetable/TrainNo/${trainNo}?$top=30&$format=JSON`).subscribe(
+    this.http.get<RailGeneralTimetable[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/GeneralTimetable/TrainNo/${trainNo}?&$format=JSON`).subscribe(
       (v: RailGeneralTimetable[]) => {
         console.log('RailGeneralTimetable', v);
         this.RailGeneralTimetable = v[0];
       }
     );
   }
+
+  BusEstimatedTimeOfArrivalCity(City: string, RouteName: string) {
+    // tslint:disable-next-line: max-line-length
+    this.http.get<BusN1EstimateTime[]>(`https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${City}/${RouteName}?$filter=Direction eq 0&$format=JSON&$orderby=NextBusTime asc,StopSequence asc`).subscribe(
+      (v: BusN1EstimateTime[]) => {
+        this.BusN1EstimateTimesRight = v;
+        this.BusN1EstimateTimesRightTab = v[0].StopName.Zh_tw + '>\n' + v.slice(-1)[0].StopName.Zh_tw;
+      }
+    );
+    // tslint:disable-next-line: max-line-length
+    this.http.get<BusN1EstimateTime[]>(`https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${City}/${RouteName}?$filter=Direction eq 1&$format=JSON&$orderby=NextBusTime asc,StopSequence asc`).subscribe(
+      (v: BusN1EstimateTime[]) => {
+        this.BusN1EstimateTimesLeft = v;
+        this.BusN1EstimateTimesLeftTab = v[0].StopName.Zh_tw + '>\n' + v.slice(-1)[0].StopName.Zh_tw;
+      }
+    );
+  }
+
 }

@@ -1,0 +1,36 @@
+<div class="container mtop">
+  <h3 class="text-center" *ngIf="motcService.BusN1EstimateTimesRight.length > 0">
+    {{motcService.BusN1EstimateTimesRight[0].RouteName.Zh_tw}}
+  </h3>
+  <mat-tab-group mat-stretch-tabs *ngIf="motcService.BusN1EstimateTimesRight.length > 0">
+    <mat-tab [label]="motcService.BusN1EstimateTimesRightTab">
+      <button mat-raised-button color="primary" class="btn-block" (click)="scroll()">前往可搭班車</button>
+      <mat-list>
+        <ng-container *ngFor="let BusN1EstimateTime of motcService.BusN1EstimateTimesRight">
+          <mat-list-item [ngClass]="{'grey': BusN1EstimateTime.StopStatus !== 0 }">
+            <h4 mat-line>
+              {{BusN1EstimateTime.NextBusTime | date:'HH:mm'}}
+              {{BusN1EstimateTime.StopName.Zh_tw}}
+            </h4>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </mat-tab>
+    <mat-tab [label]="motcService.BusN1EstimateTimesLeftTab">
+      <button mat-raised-button color="primary" class="btn-block" (click)="scroll()">前往可搭班車</button>
+      <mat-list>
+        <ng-container *ngFor="let BusN1EstimateTime of motcService.BusN1EstimateTimesLeft">
+          <mat-list-item [ngClass]="{'grey': BusN1EstimateTime.StopStatus !== 0 }">
+            <h4 mat-line>
+              {{BusN1EstimateTime.NextBusTime | date:'HH:mm'}}
+              {{BusN1EstimateTime.StopName.Zh_tw}}
+            </h4>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<br>
