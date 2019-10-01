@@ -5,9 +5,10 @@ import { ClientRoutingModule } from './client-routing.module';
 import { RailStationComponent } from './rail/rail-station/rail-station.component';
 import { MaterialModule } from '../module/material/material.module';
 import { BusRouteComponent } from './bus/bus-route/bus-route.component';
+import { ClientLayoutComponent } from './layout/client-layout/client-layout.component';
 
 @NgModule({
-  declarations: [RailStationComponent, BusRouteComponent],
+  declarations: [RailStationComponent, BusRouteComponent, ClientLayoutComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
