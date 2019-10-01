@@ -7,25 +7,26 @@ import { MotcService } from 'src/app/service/motc/motc.service';
   styleUrls: ['./rail-station.component.scss']
 })
 export class RailStationComponent implements OnInit {
-  city = '';
   TRAStations = [];
+  RailStationTimetables = [];
+  nowTime = new Date().getHours() + ':' + new Date().getMinutes();
   constructor(
     public motcService: MotcService,
   ) { }
 
   ngOnInit() {
-
+    this.motcService.RailTRAStation(this.motcService.defaultCity);
+    this.motcService.RailTRADailyTimetableStation(this.motcService.defaultStationID);
   }
 
   cityChange(event) {
-    console.log('event', event);
     const city = event.value;
-    this.motcService.RailTRAStation(city).subscribe(
-      (v: any[]) => {
-        console.log('v', v);
-        this.TRAStations = v;
-      }
-    );
+    this.motcService.RailTRAStation(city);
+  }
+
+  stationChange(event) {
+    const stationID = event.value;
+    this.motcService.RailTRADailyTimetableStation(stationID);
   }
 
 }
