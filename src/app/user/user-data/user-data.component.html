@@ -18,9 +18,10 @@
       <mat-form-field>
         <input matInput placeholder="學號" name="studentId" [readOnly]="true"
           [(ngModel)]="userService.schoolUserProfile.studentId">
-
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="!f_input.valid" class="btn-block"
+      <br>
+      <br>
+      <button mat-raised-button color="primary" [disabled]="!f_input.valid" class="btn-block mtop"
         (click)="userService.userDataSave()">
         存檔&nbsp;<mat-icon>save</mat-icon>
       </button>
