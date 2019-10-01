@@ -1,0 +1,20 @@
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="over">
+    <mat-list>
+      <h3 mat-subheader>公車資訊</h3>
+      <mat-list-item>
+        <h4 mat-line> 8041C(部分延駛樹人醫專) </h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+      <span class="spacer"></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+
+</mat-drawer-container>
