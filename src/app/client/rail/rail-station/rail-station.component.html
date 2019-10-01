@@ -18,29 +18,34 @@
   </mat-drawer>
 
   <div class="container mtop">
-    <mat-form-field>
-      <mat-label>選擇縣市</mat-label>
-      <mat-select [(ngModel)]="motcService.defaultCity" (selectionChange)="cityChange($event)">
-        <mat-option disabled>請選擇縣市</mat-option>
-        <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>選擇車站</mat-label>
-      <mat-select [(value)]="motcService.stationID" (selectionChange)="stationChange($event)">
-        <mat-option disabled>請選擇車站</mat-option>
-        <mat-option [value]="station.StationID" *ngFor="let station of motcService.RailStations">
-          {{station.StationName.Zh_tw}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="flex-div">
+      <div class="flex-item">
+        <mat-form-field>
+          <mat-label>選擇縣市</mat-label>
+          <mat-select [(ngModel)]="motcService.defaultCity" (selectionChange)="cityChange($event)">
+            <mat-option disabled>請選擇縣市</mat-option>
+            <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex-item">
+        <mat-form-field>
+          <mat-label>選擇車站</mat-label>
+          <mat-select [(value)]="motcService.stationID" (selectionChange)="stationChange($event)">
+            <mat-option disabled>請選擇車站</mat-option>
+            <mat-option [value]="station.StationID" *ngFor="let station of motcService.RailStations">
+              {{station.StationName.Zh_tw}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
     <mat-tab-group mat-stretch-tabs>
       <mat-tab label="順行">
         <mat-list>
           <ng-container *ngFor="let RailStation of motcService.RailStationTimetablesRight">
-            <mat-list-item [ngClass]="{'grey': nowTime > RailStation.ArrivalTime}">
+            <mat-list-item [ngClass]="{'grey station-pass': nowTime > RailStation.ArrivalTime}">
               <h4 mat-line (click)="motcService.RailTRAGeneralTimetableTrainNo(RailStation.TrainNo);drawer.toggle()">
                 {{RailStation.ArrivalTime}} 開往 {{RailStation.EndingStationName}}
                 <span class="right">車次{{RailStation.TrainNo}}</span>
@@ -53,7 +58,7 @@
       <mat-tab label="逆行">
         <mat-list>
           <ng-container *ngFor="let RailStation of motcService.RailStationTimetablesLeft">
-            <mat-list-item [ngClass]="{'grey': nowTime > RailStation.ArrivalTime}">
+            <mat-list-item [ngClass]="{'grey station-pass': nowTime > RailStation.ArrivalTime}">
               <h4 mat-line (click)="motcService.RailTRAGeneralTimetableTrainNo(RailStation.TrainNo);drawer.toggle()">
                 {{RailStation.ArrivalTime}} 開往 {{RailStation.EndingStationName}}
                 <span class="right">車次{{RailStation.TrainNo}}</span>
