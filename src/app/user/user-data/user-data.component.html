@@ -16,7 +16,7 @@
         <mat-icon>camera_alt</mat-icon>&nbsp;掃描學生證
       </button>
       <mat-form-field>
-        <input matInput placeholder="學號" name="studentId" [readOnly]="true"
+        <input matInput placeholder="學號(請點擊按鈕)" name="studentId" disabled
           [(ngModel)]="userService.schoolUserProfile.studentId">
       </mat-form-field>
       <br>
