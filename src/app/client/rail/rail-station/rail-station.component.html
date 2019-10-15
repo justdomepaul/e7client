@@ -1,12 +1,12 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="over" position="end">
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="over" position="end">
     <button type="button" mat-button (click)="drawer.toggle()">
       關閉
     </button>
     <div *ngIf="motcService.RailGeneralTimetable !== undefined">
       <ng-container *ngFor="let StopTime of motcService.RailGeneralTimetable.GeneralTimetable.StopTimes">
         <mat-list-item>
-          <p [ngClass]="{'grey': nowTime > StopTime.ArrivalTime,'indigo': motcService.defaultStationID == StopTime.StationID}"
+          <p [ngClass]="{'grey': motcService.nowTime > StopTime.ArrivalTime,'indigo': motcService.defaultStationID == StopTime.StationID}"
             style="margin: 0px;">
             {{StopTime.ArrivalTime}}-{{StopTime.StationName.Zh_tw}}
             <span class="right" *ngIf="motcService.defaultStationID == StopTime.StationID">(本站)</span>
@@ -45,7 +45,7 @@
       <mat-tab label="順行">
         <mat-list>
           <ng-container *ngFor="let RailStation of motcService.RailStationTimetablesRight">
-            <mat-list-item [ngClass]="{'grey station-pass': nowTime > RailStation.ArrivalTime}">
+            <mat-list-item [ngClass]="{'grey station-pass': motcService.nowTime > RailStation.ArrivalTime}">
               <h4 mat-line (click)="motcService.RailTRAGeneralTimetableTrainNo(RailStation.TrainNo);drawer.toggle()">
                 {{RailStation.ArrivalTime}} 開往 {{RailStation.EndingStationName}}
                 <span class="right">車次{{RailStation.TrainNo}}</span>
@@ -58,7 +58,7 @@
       <mat-tab label="逆行">
         <mat-list>
           <ng-container *ngFor="let RailStation of motcService.RailStationTimetablesLeft">
-            <mat-list-item [ngClass]="{'grey station-pass': nowTime > RailStation.ArrivalTime}">
+            <mat-list-item [ngClass]="{'grey station-pass': motcService.nowTime > RailStation.ArrivalTime}">
               <h4 mat-line (click)="motcService.RailTRAGeneralTimetableTrainNo(RailStation.TrainNo);drawer.toggle()">
                 {{RailStation.ArrivalTime}} 開往 {{RailStation.EndingStationName}}
                 <span class="right">車次{{RailStation.TrainNo}}</span>

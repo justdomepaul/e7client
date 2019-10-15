@@ -7,6 +7,7 @@ import { ClientLayoutComponent } from './layout/client-layout/client-layout.comp
 const routes: Routes = [
   {
     path: '', component: ClientLayoutComponent, children: [
+      { path: '', pathMatch: 'full', redirectTo: 'rail/railStation' },
       { path: 'rail/railStation', component: RailStationComponent },
       { path: 'bus/busRoute', component: BusRouteComponent }
     ]

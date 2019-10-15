@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./bus-route.component.scss']
 })
 export class BusRouteComponent implements OnInit {
-
+  StopStatus = ['正常', '尚未發車', '交管不停靠', '末班車已過', '今日未營運'];
   constructor(
     public motcService: MotcService,
     private route: ActivatedRoute,
@@ -24,6 +24,9 @@ export class BusRouteComponent implements OnInit {
         }
       },
     );
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 10000);
   }
 
   scroll() {

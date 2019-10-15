@@ -3,7 +3,8 @@
     <mat-list>
       <h3 mat-subheader>公車資訊</h3>
       <mat-list-item>
-        <h4 mat-line> 8041C(部分延駛樹人醫專) </h4>
+        <h4 mat-line [routerLink]="['/client','bus','busRoute']" [queryParams]="{City: 'Kaohsiung','RouteName':'8041C'}">
+          8041C(部分延駛樹人醫專) </h4>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>

@@ -11,6 +11,12 @@
             <h4 mat-line>
               {{BusN1EstimateTime.NextBusTime | date:'HH:mm'}}
               {{BusN1EstimateTime.StopName.Zh_tw}}
+              <span *ngIf="BusN1EstimateTime.StopStatus !== 0">
+                {{StopStatus[BusN1EstimateTime.StopStatus]}}
+              </span>
+              <span class="right" *ngIf="BusN1EstimateTime.Estimates !== undefined">
+                預計{{BusN1EstimateTime.Estimates[0].EstimateTime / 60}}分鐘
+              </span>
             </h4>
           </mat-list-item>
           <mat-divider></mat-divider>
@@ -25,6 +31,12 @@
             <h4 mat-line>
               {{BusN1EstimateTime.NextBusTime | date:'HH:mm'}}
               {{BusN1EstimateTime.StopName.Zh_tw}}
+              <span *ngIf="BusN1EstimateTime.StopStatus !== 0">
+                {{StopStatus[BusN1EstimateTime.StopStatus]}}
+              </span>
+              <span class="right" *ngIf="BusN1EstimateTime.Estimates !== undefined">
+                預計{{BusN1EstimateTime.Estimates[0].EstimateTime / 60}}分鐘
+              </span>
             </h4>
           </mat-list-item>
           <mat-divider></mat-divider>

@@ -51,6 +51,7 @@ body {
   > .flex-item {
     flex: 1;
     margin: 5px;
+    width: 10%;
   }
 }
 .blockquote {
@@ -69,4 +70,8 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+mat-drawer-container {
+  height: 100vh;
 }
