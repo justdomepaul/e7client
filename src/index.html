@@ -77,5 +77,15 @@
   <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </body>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const liffId = urlParams.get('liffId');
+  liff.init({ liffId: liffId }).then(() => {
+    // Start to use liff's api
+    console.log('init okok');
+  }).catch((err) => {
+    // Error happens during initialization
+    console.log(err.code, err.message);
+  });</script>
 
 </html>
