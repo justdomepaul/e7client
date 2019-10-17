@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LiffService } from 'src/app/service/liff/liff.service';
 import { UserService } from 'src/app/service/user/user.service';
 import { MatSnackBar } from '@angular/material';
@@ -9,7 +9,7 @@ declare let VConsole: any;
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss']
 })
-export class UserDataComponent implements OnInit, AfterViewInit {
+export class UserDataComponent implements OnInit {
   showCount = 0;
   // tslint:disable-next-line: variable-name
   pattern_StudentId = /^5\d{7}$/;
@@ -22,18 +22,26 @@ export class UserDataComponent implements OnInit, AfterViewInit {
     private snackBar: MatSnackBar,
   ) { }
 
-  ngAfterViewInit() {
-    console.log('UserDataComponent ngOnInit ok');
-    this.liffService.LIFFinit().then((result) => {
-      console.log('UserDataComponent LIFFinit ok');
-      this.userService.userDataGet();
-    }).catch((err) => {
-      console.log('UserDataComponent LIFFinit GG', err);
-    });
+  ngOnInit() {
     this.JOBinit();
+    this.getUserDataAndInit();
   }
 
-  ngOnInit() { }
+  getUserDataAndInit() {
+    console.log('getUserDataAndInit');
+    this.liffService.LIFFinit().then((result) => {
+      console.log('LIFFinit ok');
+      this.userService.userDataGet();
+    }).catch((err) => {
+      console.log('LIFFinit GG', err);
+    });
+    setTimeout(() => {
+      console.log('his.userService.schoolUserProfile', this.userService.schoolUserProfile);
+      if (this.userService.schoolUserProfile === undefined) {
+        this.getUserDataAndInit();
+      }
+    }, 500);
+  }
 
   showVConsole() {
     this.showCount++;
@@ -41,7 +49,7 @@ export class UserDataComponent implements OnInit, AfterViewInit {
       const vConsole = new VConsole();
     }
     if (this.showCount > 7) {
-      this.ngAfterViewInit();
+      this.getUserDataAndInit();
     }
   }
 
