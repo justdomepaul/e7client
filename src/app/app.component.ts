@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LiffService } from './service/liff/liff.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +9,8 @@ export class AppComponent implements OnInit {
   title = 'e7client';
 
   constructor(
-    private liffService: LiffService,
   ) { }
   ngOnInit() {
-    this.liffService.LIFFinit();
+
   }
 }
