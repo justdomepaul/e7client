@@ -8,7 +8,7 @@ interface LIFF {
   openWindow(params: LIFFOpenWindowParams): void;
   closeWindow(): void;
 
-  scanCode(): Promise<string>;
+  scanCode(): Promise<{ value: string }>;
 }
 
 interface LIFFUserProfile {

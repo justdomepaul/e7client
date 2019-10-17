@@ -16,7 +16,8 @@ export class TestComponent implements OnInit {
 
   scanCode() {
     liff.scanCode().then(result => {
-      this.qrcode = result;
+      console.log('scanCode', result);
+      this.qrcode = result.value;
     });
   }
 
