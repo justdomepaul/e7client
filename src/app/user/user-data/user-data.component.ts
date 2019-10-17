@@ -22,6 +22,7 @@ export class UserDataComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userService.userDataGet();
     this.JOBinit();
   }
 
