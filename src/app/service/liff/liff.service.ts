@@ -5,7 +5,6 @@ declare let liff: any;
   providedIn: 'root'
 })
 export class LiffService {
-  liffCount = 0;
   liffId = '';
   channelID = '';
   profile: LIFFUserProfile;
@@ -29,16 +28,9 @@ export class LiffService {
       liff.init({ liffId: this.liffId }).then(() => {
         resolve(this.LIFFgetProfile());
       }).catch((err) => {
-        this.liffCount++;
-        if (this.liffCount < 20) {
-          setTimeout(() => {
-            return (this.LIFFinit());
-          }, 100);
-        } else {
-          alert('liffId=' + this.liffId + '\n' + 'gg => ' + JSON.stringify(err));
-          this.snackBar.open('載入失敗' + err.code, '', { duration: 2000 });
-          reject(false);
-        }
+        // alert('liffId=' + this.liffId + '\n' + 'gg => ' + JSON.stringify(err));
+        // this.snackBar.open('載入失敗' + err.code, '', { duration: 2000 });
+        reject(false);
       });
     });
   }
