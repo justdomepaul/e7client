@@ -4,6 +4,7 @@ import { RailStationComponent } from './rail/rail-station/rail-station.component
 import { BusRouteComponent } from './bus/bus-route/bus-route.component';
 import { ClientLayoutComponent } from './layout/client-layout/client-layout.component';
 import { TestComponent } from './games/test/test.component';
+import { LiffGuard } from '../guard/liff/liff.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'rail/railStation' },
       { path: 'rail/railStation', component: RailStationComponent },
       { path: 'bus/busRoute', component: BusRouteComponent },
-      { path: 'game/test', component: TestComponent },
+      { path: 'game/test', component: TestComponent, canActivate: [LiffGuard] },
     ]
   },
 

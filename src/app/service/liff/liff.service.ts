@@ -5,6 +5,7 @@ declare let liff: any;
   providedIn: 'root'
 })
 export class LiffService {
+  liffId = '';
   profile: LIFFUserProfile;
   channelID = '';
   profileDemo: LIFFUserProfile = {
@@ -18,21 +19,31 @@ export class LiffService {
   ) { }
 
   LIFFinit(): Promise<any> {
-    return new Promise<LIFFUserProfile>(resolve => {
+    return new Promise<any>((resolve, reject) => {
       if (location.hostname === 'localhost') {
         this.profile = this.profileDemo;
-        resolve(this.profileDemo);
+        resolve(true);
         return;
       }
-      liff.init(data => {
-        resolve(liff.getProfile());
-      }, err => {
+      liff.init({ liffId: this.liffId }).then(() => {
+        resolve(this.LIFFgetProfile());
+      }).catch((err) => {
         this.snackBar.open('載入失敗' + err.code, '', { duration: 2000 });
+        reject(false);
       });
-    })
-      .then((profile) => {
+    });
+  }
+
+  LIFFgetProfile(): Promise<true> {
+    return new Promise((resolve, reject) => {
+      liff.getProfile().then((profile: LIFFUserProfile) => {
         this.profile = profile;
+        resolve(true);
+      }).catch((err) => {
+        console.log('getProfile error', err);
+        reject(false);
       });
+    });
   }
 
   LIFFcloseWindow() {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LiffService } from 'src/app/service/liff/liff.service';
 
 @Component({
   selector: 'app-test',
@@ -9,15 +8,10 @@ import { LiffService } from 'src/app/service/liff/liff.service';
 export class TestComponent implements OnInit {
   qrcode = '';
   constructor(
-    private liffService: LiffService,
   ) { }
 
   ngOnInit() {
-    this.liffService.LIFFinit().then((result) => {
 
-    }).catch((err) => {
-
-    });
   }
 
   scanCode() {
