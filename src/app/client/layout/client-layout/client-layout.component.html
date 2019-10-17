@@ -13,10 +13,17 @@
         <h4 mat-line [routerLink]="['/client','rail','railStation']" (click)="drawer.toggle()">大湖車站</h4>
       </mat-list-item>
       <mat-divider></mat-divider>
-      <mat-list-item *ngIf="showCount >= 8">
-        <h4 mat-line [routerLink]="['/client','game','test']" (click)="drawer.toggle()">測試1</h4>
-      </mat-list-item>
-      <mat-divider></mat-divider>
+      <div style="position: absolute;width: 100%;bottom: 0px;" *ngIf="showCount >= 5">
+        <h3 mat-subheader>測試區域</h3>
+        <mat-list-item>
+          <h4 mat-line [routerLink]="['/client','game','test']" (click)="drawer.toggle()">測試1</h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h4 mat-line (click)="showVConsole();drawer.toggle()">打開vConsole</h4>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
     </mat-list>
   </mat-drawer>
 

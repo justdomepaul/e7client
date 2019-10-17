@@ -3,13 +3,14 @@ import { LiffService } from 'src/app/service/liff/liff.service';
 import { UserService } from 'src/app/service/user/user.service';
 import { MatSnackBar } from '@angular/material';
 declare let JOB: any;
+declare let VConsole: any;
 @Component({
   selector: 'app-user-data',
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss']
 })
 export class UserDataComponent implements OnInit, AfterViewInit {
-
+  showCount = 0;
   // tslint:disable-next-line: variable-name
   pattern_StudentId = /^5\d{7}$/;
   // tslint:disable-next-line: variable-name
@@ -22,11 +23,6 @@ export class UserDataComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
-    console.log('UserDataComponent ngAfterViewChecked ok');
-    this.ngOnInit();
-  }
-
-  ngOnInit() {
     console.log('UserDataComponent ngOnInit ok');
     this.liffService.LIFFinit().then((result) => {
       console.log('UserDataComponent LIFFinit ok');
@@ -35,6 +31,18 @@ export class UserDataComponent implements OnInit, AfterViewInit {
       console.log('UserDataComponent LIFFinit GG', err);
     });
     this.JOBinit();
+  }
+
+  ngOnInit() { }
+
+  showVConsole() {
+    this.showCount++;
+    if (this.showCount === 5) {
+      const vConsole = new VConsole();
+    }
+    if (this.showCount > 7) {
+      this.ngAfterViewInit();
+    }
   }
 
   JOBinit() {

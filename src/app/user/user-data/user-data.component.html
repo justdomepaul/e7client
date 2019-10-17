@@ -1,5 +1,5 @@
 <div class="container">
-  <p class="blockquote">惡意輸入假資料將自行承擔法律責任。</p>
+  <p class="blockquote" (click)="showVConsole()">惡意輸入假資料將自行承擔法律責任。</p>
   <div *ngIf="userService.schoolUserProfile !== undefined">
     <form name="form" #f_input="ngForm">
       <mat-form-field>
