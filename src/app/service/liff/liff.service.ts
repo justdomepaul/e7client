@@ -28,7 +28,7 @@ export class LiffService {
       liff.init({ liffId: this.liffId }).then(() => {
         resolve(this.LIFFgetProfile());
       }).catch((err) => {
-        alert('gg => ' + JSON.stringify(err));
+        alert('liffId=' + this.liffId + '\n' + 'gg => ' + JSON.stringify(err));
         this.snackBar.open('載入失敗' + err.code, '', { duration: 2000 });
         reject(false);
       });
