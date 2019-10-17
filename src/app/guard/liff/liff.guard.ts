@@ -22,6 +22,5 @@ export class LiffGuard implements CanActivate {
     };
     liffScript.src = 'https://static.line-scdn.net/liff/edge/2.1/sdk.js';
     document.getElementsByTagName('head')[0].appendChild(liffScript);
-    return this.liffService.LIFFinit();
   }
 }
