@@ -15,7 +15,6 @@ import { LiffService } from 'src/app/service/liff/liff.service';
 export class RouteGuardGuard implements CanActivate {
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private liffService: LiffService,
   ) { }
   canActivate(

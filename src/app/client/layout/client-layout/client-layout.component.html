@@ -1,7 +1,7 @@
 <mat-drawer-container autosize>
   <mat-drawer #drawer mode="over">
     <mat-list>
-      <h3 mat-subheader>公車資訊</h3>
+      <h3 mat-subheader (click)="showCount=showCount+1;">公車資訊</h3>
       <mat-list-item>
         <h4 mat-line [routerLink]="['/client','bus','busRoute']" (click)="drawer.toggle()"
           [queryParams]="{City: 'Kaohsiung','RouteName':'8041C'}">
@@ -11,6 +11,10 @@
       <h3 mat-subheader>鐵路資訊</h3>
       <mat-list-item>
         <h4 mat-line [routerLink]="['/client','rail','railStation']" (click)="drawer.toggle()">大湖車站</h4>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="showCount >= 8">
+        <h4 mat-line [routerLink]="['/client','game','test']" (click)="drawer.toggle()">測試1</h4>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>

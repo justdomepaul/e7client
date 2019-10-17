@@ -3,10 +3,12 @@ declare var liff: LIFF;
 interface LIFF {
   init(successCallback: Function, errorCallback: Function): void;
   getProfile(): Promise<LIFFUserProfile>;
-  sendMessages(messages: Array<LIFFTextMessage|LIFFImageMessage|LIFFVideoMessage|LIFFAudioMessage|LIFFLocationMessage>);
+  sendMessages(messages: Array<LIFFTextMessage | LIFFImageMessage | LIFFVideoMessage | LIFFAudioMessage | LIFFLocationMessage>);
 
   openWindow(params: LIFFOpenWindowParams): void;
   closeWindow(): void;
+
+  scanCode(): Promise<string>;
 }
 
 interface LIFFUserProfile {
