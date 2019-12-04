@@ -73,7 +73,7 @@ export class MotcService {
 
   RailTRAStation(city: string) {
     // tslint:disable-next-line: max-line-length
-    this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=substring(StationAddress%2C0%2C3) eq '${city}'&$format=JSON`, this.MotcHttpOptions).subscribe(
+    this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=contains(StationAddress, '${city}')&$format=JSON`, this.MotcHttpOptions).subscribe(
       (v: RailStation[]) => {
         this.RailStations = v;
         this.stationID = v[0].StationID;
