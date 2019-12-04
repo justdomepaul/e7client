@@ -15,8 +15,11 @@ export class RailStationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.motcService.RailTRAStation(this.motcService.defaultCity);
-    this.motcService.RailTRADailyTimetableStation(this.motcService.defaultStationID);
+    this.motcService.RailTRAStation(this.motcService.defaultCity).then((result) => {
+      this.motcService.RailTRADailyTimetableStation(this.motcService.defaultStationID);
+    }).catch((err) => {
+
+    });
   }
 
   cityChange(event) {

@@ -33,7 +33,7 @@ export class MotcService {
     '花蓮縣',
     '臺東縣'];
   defaultCity = '高雄市';
-  defaultStationID = '1231';
+  defaultStationID = '4290';
   stationID = '';
   RailStations: RailStation[] = [];
   RailStationTimetablesRight: RailStationTimetable[] = [];
@@ -71,35 +71,46 @@ export class MotcService {
 
   }
 
-  RailTRAStation(city: string) {
-    // tslint:disable-next-line: max-line-length
-    this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=contains(StationAddress, '${city}')&$format=JSON`, this.MotcHttpOptions).subscribe(
-      (v: RailStation[]) => {
-        this.RailStations = v;
-        this.stationID = v[0].StationID;
-        this.RailTRADailyTimetableStation(v[0].StationID);
-      }
-    );
+  RailTRAStation(city: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // tslint:disable-next-line: max-line-length
+      this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=contains(StationAddress, '${city}')&$format=JSON`, this.MotcHttpOptions).subscribe(
+        (v: RailStation[]) => {
+          this.RailStations = v;
+          this.stationID = v[0].StationID;
+          this.RailTRADailyTimetableStation(v[0].StationID);
+          resolve(true);
+        }
+      );
+    });
   }
 
-  RailTRADailyTimetableStation(stationID: string) {
+  RailTRADailyTimetableStation(stationID: string): Promise<boolean[]> {
+    this.stationID = stationID;
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     const data = yyyy + '-' + mm + '-' + dd;
-    // tslint:disable-next-line: max-line-length
-    this.http.get(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Station/${stationID}/${data}?$filter=Direction eq 0&$orderby=ArrivalTime&$format=JSON`, this.MotcHttpOptions).subscribe(
-      (v: RailStationTimetable[]) => {
-        this.RailStationTimetablesRight = v;
-      }
-    );
-    // tslint:disable-next-line: max-line-length
-    this.http.get(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Station/${stationID}/${data}?$filter=Direction eq 1&$orderby=ArrivalTime&$format=JSON`, this.MotcHttpOptions).subscribe(
-      (v: RailStationTimetable[]) => {
-        this.RailStationTimetablesLeft = v;
-      }
-    );
+    const direction0: Promise<boolean> = new Promise((resolve, reject) => {
+      // tslint:disable-next-line: max-line-length
+      this.http.get(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Station/${stationID}/${data}?$filter=Direction eq 0&$orderby=ArrivalTime&$format=JSON`, this.MotcHttpOptions).subscribe(
+        (v: RailStationTimetable[]) => {
+          this.RailStationTimetablesRight = v;
+          resolve(true);
+        }
+      );
+    });
+    const direction1: Promise<boolean> = new Promise((resolve, reject) => {
+      // tslint:disable-next-line: max-line-length
+      this.http.get(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/Station/${stationID}/${data}?$filter=Direction eq 1&$orderby=ArrivalTime&$format=JSON`, this.MotcHttpOptions).subscribe(
+        (v: RailStationTimetable[]) => {
+          this.RailStationTimetablesLeft = v;
+          resolve(true);
+        }
+      );
+    });
+    return Promise.all([direction0, direction1]);
   }
 
   RailTRAGeneralTimetableTrainNo(trainNo: string) {
