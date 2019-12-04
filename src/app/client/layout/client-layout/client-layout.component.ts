@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare let VConsole: any;
+
 @Component({
   selector: 'app-client-layout',
   templateUrl: './client-layout.component.html',

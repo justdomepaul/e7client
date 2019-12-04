@@ -3,13 +3,14 @@ import { LiffService } from 'src/app/service/liff/liff.service';
 import { UserService } from 'src/app/service/user/user.service';
 import { MatSnackBar } from '@angular/material';
 declare let JOB: any;
+declare let VConsole: any;
 @Component({
   selector: 'app-user-data',
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss']
 })
 export class UserDataComponent implements OnInit {
-
+  showCount = 0;
   // tslint:disable-next-line: variable-name
   pattern_StudentId = /^5\d{7}$/;
   // tslint:disable-next-line: variable-name
@@ -22,12 +23,34 @@ export class UserDataComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.JOBinit();
+    this.getUserDataAndInit();
+  }
+
+  getUserDataAndInit() {
+    console.log('getUserDataAndInit');
     this.liffService.LIFFinit().then((result) => {
+      console.log('LIFFinit ok');
       this.userService.userDataGet();
     }).catch((err) => {
-
+      console.log('LIFFinit GG', err);
     });
-    this.JOBinit();
+    setTimeout(() => {
+      console.log('his.userService.schoolUserProfile', this.userService.schoolUserProfile);
+      if (this.userService.schoolUserProfile === undefined) {
+        this.getUserDataAndInit();
+      }
+    }, 500);
+  }
+
+  showVConsole() {
+    this.showCount++;
+    if (this.showCount === 5) {
+      const vConsole = new VConsole();
+    }
+    if (this.showCount > 7) {
+      this.getUserDataAndInit();
+    }
   }
 
   JOBinit() {
