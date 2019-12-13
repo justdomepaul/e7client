@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
+import { RailTrainTimeTableDialogComponent } from './tools/dialog/rail-train-time-table-dialog/rail-train-time-table-dialog.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -24,7 +25,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RailTrainTimeTableDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RailTrainTimeTableDialogComponent]
 })
 export class AppModule { }

@@ -1,0 +1,17 @@
+<div *ngIf="motcService.TRAGeneralTrainTimetableList !== undefined">
+  <p class="stickyTrain">
+    車次:{{motcService.TRAGeneralTrainTimetableList.TrainTimetables[0].TrainInfo.TrainNo}}
+    {{motcService.TRAGeneralTrainTimetableList.TrainTimetables[0].TrainInfo.TrainTypeName.Zh_tw.substr(0,3).replace('(','').replace('快','')}}
+    <br>
+    {{motcService.TRAGeneralTrainTimetableList.TrainTimetables[0].TrainInfo.StartingStationName.Zh_tw}}
+    往
+    {{motcService.TRAGeneralTrainTimetableList.TrainTimetables[0].TrainInfo.EndingStationName.Zh_tw}}
+  </p>
+  <div style="text-align: right;"
+    *ngFor="let StopTime of motcService.TRAGeneralTrainTimetableList.TrainTimetables[0].StopTimes">
+    <div class="trainDiv" [ngClass]="{'actionTrain': StopTime.StationID == data.A || StopTime.StationID == data.B}">
+      {{StopTime.StationName.Zh_tw}}
+      {{StopTime.ArrivalTime}}
+    </div>
+  </div>
+</div>

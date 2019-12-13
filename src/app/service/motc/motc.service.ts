@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RailStationTimetable, RailStation, RailGeneralTimetable, RailDailyTrainInfo } from 'src/app/interface/rail';
+import { RailStationTimetable, RailStation, RailGeneralTimetable, RailDailyTrainInfo, TRAGeneralTrainTimetableList } from 'src/app/interface/rail';
 import { BusN1EstimateTime } from 'src/app/interface/bus';
 declare const require;
 const jssha = require('jssha');
@@ -53,6 +53,7 @@ export class MotcService {
     6: '區間',
     10: '區間',
   };
+  TRAGeneralTrainTimetableList: TRAGeneralTrainTimetableList;
   constructor(
     private http: HttpClient,
   ) {
@@ -174,6 +175,17 @@ export class MotcService {
       (v: RailGeneralTimetable[]) => {
         console.log('RailGeneralTimetable', v);
         this.RailGeneralTimetable = v[0];
+      }
+    );
+  }
+
+  // GET /v3/Rail/TRA/GeneralTrainTimetable/TrainNo/{TrainNo}
+  RailTRAGeneralTrainTimetableTrainNo(trainNo: string) {
+    // tslint:disable-next-line: max-line-length
+    this.http.get<TRAGeneralTrainTimetableList>(`https://ptx.transportdata.tw/MOTC//v3/Rail/TRA/GeneralTrainTimetable/TrainNo/${trainNo}?&$format=JSON`, this.MotcHttpOptions).subscribe(
+      (v: TRAGeneralTrainTimetableList) => {
+        console.log('RailGeneralTimetable', v);
+        this.TRAGeneralTrainTimetableList = v;
       }
     );
   }

@@ -10,7 +10,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>選擇車站</mat-label>
-        <mat-select #stationA [(ngModel)]="StationID['A']" name="StationIDA" (selectionChange)="tt($event)">
+        <mat-select #stationA [(ngModel)]="StationID['A']" name="StationIDA">
           <mat-option disabled>請選擇車站</mat-option>
           <mat-option [value]="station.StationID" *ngFor="let station of RailStations['A']"
             [ngClass]="{'text-primary': station.StationClass <= 1}">
@@ -66,7 +66,7 @@
     <li>行車時間</li>
   </ul>
   <ng-container *ngFor="let RailDailyTrainInfo of motcService.RailDailyTrainInfos">
-    <ul class="RailDailyTrainInfos">
+    <ul class="RailDailyTrainInfos" (click)="openDialog(RailDailyTrainInfo.DailyTrainInfo.TrainNo)">
       <li>
         {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
       </li>

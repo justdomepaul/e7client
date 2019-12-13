@@ -151,3 +151,56 @@ export interface RailDailyTrainInfo {
   'UpdateTime': '2019-11-27T12:22:01+08:00';
   'VersionID': 8;
 }
+
+export interface TRAGeneralTrainTimetableList {
+  UpdateTime: string; // 本平台資料更新時間(ISO8601格式: yyyy-MM - ddTHH: mm: sszzz)
+  UpdateInterval: number; // 本平台資料更新週期(秒)
+  SrcUpdateTime: string; // 來源端平台資料更新時間(ISO8601格式: yyyy - MM - ddTHH: mm: sszzz)
+  SrcUpdateInterval: number; // 來源端平台資料更新週期(秒)
+  AuthorityCode: string; // 業管機關簡碼
+  EffectiveDate: string; // 有效起始日期
+  ExpireDate: string; // 有效終止日期
+  SrcVersion: string; // 來源版號
+  TimetableName: string; // 定期性站別時刻表名稱
+  ValidityDesciption: string; // 時刻表適用情形說明
+  TrainTimetables: GeneralTrainTimetable[]; // 資料(陣列)
+  Count: number; // 資料總筆數
+}
+
+export interface GeneralTrainTimetable {
+  TrainInfo: TrainInfo; // 定期車次資料
+  StopTimes: StopTime[]; // 停靠時間資料
+}
+
+export interface TrainInfo {
+  TrainNo: string; // 車次代碼
+  RouteID: string; // 營運路線代碼
+  Direction: number; // 行駛方向 : [0:'順行',1:'逆行']
+  TrainTypeID: string; // 車種代嗎
+  TrainTypeCode: string; // 車種簡碼 = ['1: 太魯閣', '2: 普悠瑪', '3: 自強', '4: 莒光', '5: 復興', '6: 區間', '7: 普快', '10: 區間快']
+  TrainTypeName: NameType; // 車種名稱
+  TripHeadSign: string; // 車次之目的地方向描述
+  StartingStationID: string; // 列車起點車站代號
+  StartingStationName: NameType; // 列車起點車站名稱
+  EndingStationID: string; // 列車終點車站代號
+  EndingStationName: NameType; // 列車終點車站名稱
+  OverNightStationID: string; // 跨夜車站代碼
+  TripLine: number; // 山海線類型 : [0:'不經山海線',1:'山線',2:'海線']
+  WheelChairFlag: number; // 是否設身障旅客專用座位車 : [0:'否',1:'是']
+  PackageServiceFlag: number; // 是否提供行李服務 : [0:'否',1:'是']
+  DiningFlag: number; // 是否提供餐車服務 : [0:'否',1:'是']
+  BreastFeedFlag: number; // 是否設有哺(集)乳室車廂 : [0:'否',1:'是']
+  BikeFlag: number; // 是否人車同行班次(置於攜車袋之自行車各級列車均可乘車) : [0:'否',1:'是']
+  CarFlag: number; // 是否提供小客車 : [0:'否',1:'是']
+  DailyFlag: number; // 是否為每日行駛 : [0:'否',1:'是']
+  ExtraTrainFlag: number; // 是否為加班車 : [0:'否',1:'是']
+  Note: string; // 附註說明
+}
+
+export interface StopTime {
+  StopSequence: number; // 停靠站序(由1開始)
+  StationID: string; // 車站代碼
+  StationName: NameType; // 車站名稱
+  ArrivalTime: string; // 到站時間(格式: HH:mm)
+  DepartureTime: string; // 離站時間(格式: HH:mm)
+}

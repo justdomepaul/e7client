@@ -12,6 +12,9 @@
       <mat-list-item>
         <h4 mat-line [routerLink]="['/client','rail','railStation']" (click)="drawer.toggle()">大湖車站</h4>
       </mat-list-item>
+      <mat-list-item>
+          <h4 mat-line [routerLink]="['/client','rail','railDailyTimeTable']" (click)="drawer.toggle()">列車時刻/車次查詢</h4>
+        </mat-list-item>
       <mat-divider></mat-divider>
       <div style="position: absolute;width: 100%;bottom: 0px;" *ngIf="showCount >= 5">
         <h3 mat-subheader>測試區域</h3>
