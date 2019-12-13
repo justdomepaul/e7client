@@ -68,7 +68,6 @@
   <ng-container *ngFor="let RailDailyTrainInfo of motcService.RailDailyTrainInfos">
     <ul class="RailDailyTrainInfos">
       <li>
-
         {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
       </li>
       <li>{{RailDailyTrainInfo.OriginStopTime.ArrivalTime}}</li>
@@ -82,23 +81,5 @@
       <li>{{RailDailyTrainInfo.DestinationStopTime.ArrivalTime}}</li>
       <li>{{RailDailyTrainInfo.NeedTime}}</li>
     </ul>
-
-    <!--
-            {{RailDailyTrainInfo.OriginStopTime.ArrivalTime}}
-            {{RailDailyTrainInfo.OriginStopTime.StationName.Zh_tw}}
-            &nbsp;
-            {{motcService.TrainTypeCode[RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode]}}
-            {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
-            <br>
-            {{RailDailyTrainInfo.DestinationStopTime.ArrivalTime}}
-            {{RailDailyTrainInfo.DestinationStopTime.StationName.Zh_tw}}
-            &nbsp;
-            {{RailDailyTrainInfo.NeedTime}}
-             -->
-    <!-- <mat-icon style="align-self: center;" [ngClass]="{'TrainTypeCode2': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==2,
-            'TrainTypeCode3': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==3,
-            'TrainTypeCode4': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==4}">
-            train</mat-icon>&nbsp; -->
-    <!-- {{RailDailyTrainInfo | json}} -->
   </ng-container>
 </div>
