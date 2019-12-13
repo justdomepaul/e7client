@@ -1,0 +1,47 @@
+// '', '', '普悠瑪', '自強', '莒光', '', '區間'
+// 莒光
+.TrainTypeCode2 {
+  color: #d13816;
+}
+
+.TrainTypeCode3 {
+  color: #f38517;
+}
+
+.TrainTypeCode4 {
+  color: #fed219;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.text-primary {
+  color: #3f51b5;
+}
+
+.RailDailyTrainInfos {
+  width: 100%;
+  display: flex;
+  list-style-type: none;
+  padding: 0px;
+  :not(:first-child) {
+    justify-content: center;
+  }
+  :first-child {
+    flex: 0 0 10%;
+  }
+  > li {
+    flex: 1;
+    display: flex;
+    word-break: keep-all;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0px;
+  background: #fff;
+  height: 40px;
+  align-items: center;
+}

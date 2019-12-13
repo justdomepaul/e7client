@@ -1,0 +1,104 @@
+<div class="container mtop">
+  <div class="flex-div">
+    <div class="flex-item">
+      <mat-form-field>
+        <mat-label>選擇縣市</mat-label>
+        <mat-select (selectionChange)="cityChange($event.value,'A')">
+          <mat-option disabled>請選擇縣市</mat-option>
+          <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>選擇車站</mat-label>
+        <mat-select #stationA [(ngModel)]="StationID['A']" name="StationIDA" (selectionChange)="tt($event)">
+          <mat-option disabled>請選擇車站</mat-option>
+          <mat-option [value]="station.StationID" *ngFor="let station of RailStations['A']"
+            [ngClass]="{'text-primary': station.StationClass <= 1}">
+            {{station.StationName.Zh_tw}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="flex-item">
+      <mat-form-field>
+        <mat-label>選擇縣市</mat-label>
+        <mat-select (selectionChange)="cityChange($event.value,'B')">
+          <mat-option disabled>請選擇縣市</mat-option>
+          <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>選擇車站</mat-label>
+        <mat-select #stationB [(ngModel)]="StationID['B']" name="StationIDB">
+          <mat-option disabled>請選擇車站</mat-option>
+          <mat-option [value]="station.StationID" *ngFor="let station of RailStations['B']"
+            [ngClass]="{'text-primary': station.StationClass <= 1}">
+            {{station.StationName.Zh_tw}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="flex-div">
+    <!-- <div class="flex-item">
+      <button mat-raised-button class="btn-block" color="primary"
+        (click)="motcService.DailyTimetable(stationA.value,stationB.value)">
+        <mat-icon>sync_alt</mat-icon>
+      </button>
+    </div> -->
+    <div class="flex-item">
+      <button mat-raised-button class="btn-block" color="primary"
+        (click)="motcService.DailyTimetable(StationID['A'],StationID['B'])">
+        <mat-icon>search</mat-icon>查詢
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mtop">
+  <ul class="RailDailyTrainInfos sticky">
+    <li>車次</li>
+    <li>{{stationA.triggerValue}}</li>
+    <li>
+      <mat-icon>arrow_right_alt</mat-icon>
+    </li>
+    <li>{{stationB.triggerValue}}</li>
+    <li>行車時間</li>
+  </ul>
+  <ng-container *ngFor="let RailDailyTrainInfo of motcService.RailDailyTrainInfos">
+    <ul class="RailDailyTrainInfos">
+      <li>
+
+        {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
+      </li>
+      <li>{{RailDailyTrainInfo.OriginStopTime.ArrivalTime}}</li>
+      <li>
+        <mat-icon style="align-self: center;" [ngClass]="{'TrainTypeCode2': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==2,
+          'TrainTypeCode3': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==3,
+          'TrainTypeCode4': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==4}">
+          train</mat-icon>
+        {{RailDailyTrainInfo.DailyTrainInfo.TrainTypeName.Zh_tw.substr(0,3).replace('(','').replace('快','')}}
+      </li>
+      <li>{{RailDailyTrainInfo.DestinationStopTime.ArrivalTime}}</li>
+      <li>{{RailDailyTrainInfo.NeedTime}}</li>
+    </ul>
+
+    <!--
+            {{RailDailyTrainInfo.OriginStopTime.ArrivalTime}}
+            {{RailDailyTrainInfo.OriginStopTime.StationName.Zh_tw}}
+            &nbsp;
+            {{motcService.TrainTypeCode[RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode]}}
+            {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
+            <br>
+            {{RailDailyTrainInfo.DestinationStopTime.ArrivalTime}}
+            {{RailDailyTrainInfo.DestinationStopTime.StationName.Zh_tw}}
+            &nbsp;
+            {{RailDailyTrainInfo.NeedTime}}
+             -->
+    <!-- <mat-icon style="align-self: center;" [ngClass]="{'TrainTypeCode2': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==2,
+            'TrainTypeCode3': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==3,
+            'TrainTypeCode4': RailDailyTrainInfo.DailyTrainInfo.TrainTypeCode ==4}">
+            train</mat-icon>&nbsp; -->
+    <!-- {{RailDailyTrainInfo | json}} -->
+  </ng-container>
+</div>

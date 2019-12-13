@@ -22,7 +22,7 @@
       <div class="flex-item">
         <mat-form-field>
           <mat-label>選擇縣市</mat-label>
-          <mat-select [(ngModel)]="motcService.defaultCity" (selectionChange)="cityChange($event)">
+          <mat-select [(ngModel)]="motcService.defaultCity" (selectionChange)="motcService.RailTRAStation($event.value)">
             <mat-option disabled>請選擇縣市</mat-option>
             <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
           </mat-select>

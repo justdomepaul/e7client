@@ -22,11 +22,6 @@ export class RailStationComponent implements OnInit {
     });
   }
 
-  cityChange(event) {
-    const city = event.value;
-    this.motcService.RailTRAStation(city);
-  }
-
   stationChange(event) {
     const stationID = event.value;
     this.motcService.RailTRADailyTimetableStation(stationID);

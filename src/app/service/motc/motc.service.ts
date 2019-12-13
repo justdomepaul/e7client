@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RailStationTimetable, RailStation, RailGeneralTimetable } from 'src/app/interface/rail';
+import { RailStationTimetable, RailStation, RailGeneralTimetable, RailDailyTrainInfo } from 'src/app/interface/rail';
 import { BusN1EstimateTime } from 'src/app/interface/bus';
 declare const require;
 const jssha = require('jssha');
@@ -17,7 +17,7 @@ export class MotcService {
     '臺北市',
     '新北市',
     '宜蘭縣',
-    '桃園縣',
+    '桃園市',
     '新竹市',
     '新竹縣',
     '苗栗縣',
@@ -44,6 +44,15 @@ export class MotcService {
   BusN1EstimateTimesLeftTab = '';
   BusN1EstimateTimesRight: BusN1EstimateTime[] = [];
   BusN1EstimateTimesLeft: BusN1EstimateTime[] = [];
+
+  RailDailyTrainInfos: RailDailyTrainInfo[] = [];
+  TrainTypeCode: { [key: string]: string } = {
+    1: '普悠瑪',
+    2: '自強',
+    3: '莒光',
+    6: '區間',
+    10: '區間',
+  };
   constructor(
     private http: HttpClient,
   ) {
@@ -71,17 +80,63 @@ export class MotcService {
 
   }
 
-  RailTRAStation(city: string): Promise<boolean> {
+  // GET /v2/Rail/TRA/DailyTimetable/OD/{OriginStationID}/to/{DestinationStationID}/{TrainDate}
+  DailyTimetable(originStationID: string, destinationStationID: string, trainDate: string = ''): Promise<boolean> {
+    trainDate = (trainDate === '') ? new Date().toJSON().substr(0, 10) : trainDate;
     return new Promise((resolve, reject) => {
       // tslint:disable-next-line: max-line-length
-      this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$filter=contains(StationAddress, '${city}')&$format=JSON`, this.MotcHttpOptions).subscribe(
-        (v: RailStation[]) => {
-          this.RailStations = v;
-          this.stationID = v[0].StationID;
-          this.RailTRADailyTimetableStation(v[0].StationID);
+      this.http.get<RailDailyTrainInfo[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/DailyTimetable/OD/${originStationID}/to/${destinationStationID}/${trainDate}`,
+        {
+          ...this.MotcHttpOptions,
+          params: {
+            $format: 'JSON',
+            $orderby: 'OriginStopTime/ArrivalTime',
+          }
+        }
+      ).subscribe(
+        (v: RailDailyTrainInfo[]) => {
+          console.log('RailDailyTrainInfo', v);
+          v.map((railDailyTrainInfo: RailDailyTrainInfo) => {
+            const arrivalTimeSplitA = railDailyTrainInfo.OriginStopTime.ArrivalTime.split(':');
+            const arrivalTimeSplitB = railDailyTrainInfo.DestinationStopTime.ArrivalTime.split(':');
+            if (arrivalTimeSplitB[0] < arrivalTimeSplitA[0]) {
+              arrivalTimeSplitB[0] += 24;
+            }
+            const arrivalTimeSplitATime = Number(arrivalTimeSplitA[0]) * 60 + Number(arrivalTimeSplitA[1]);
+            const arrivalTimeSplitBTime = Number(arrivalTimeSplitB[0]) * 60 + Number(arrivalTimeSplitB[1]);
+            const needTime = arrivalTimeSplitBTime - arrivalTimeSplitATime;
+            if (needTime / 60 >= 1) {
+              railDailyTrainInfo.NeedTime = Math.floor(needTime / 60) + '小時' + needTime % 60 + '分';
+            } else {
+              railDailyTrainInfo.NeedTime = needTime % 60 + '分';
+            }
+          });
+          this.RailDailyTrainInfos = v;
           resolve(true);
         }
       );
+    });
+  }
+
+  RailTRAStation(city: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // tslint:disable-next-line: max-line-length
+      this.http.get<RailStation[]>(`https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station`,
+        {
+          ...this.MotcHttpOptions,
+          params: {
+            $format: 'JSON',
+            $orderby: 'StationID',
+            $filter: `contains(StationAddress, '${city}')`,
+          }
+        }).subscribe(
+          (v: RailStation[]) => {
+            this.RailStations = v;
+            this.stationID = v[0].StationID;
+            this.RailTRADailyTimetableStation(v[0].StationID);
+            resolve(true);
+          }
+        );
     });
   }
 

@@ -92,3 +92,62 @@ export interface ServiceDay {
   Saturday: number; // 星期六是否營運 : [0:'否',1:'是'] ,
   Sunday: number; // 星期日是否營運 : [0:'否',1:'是']
 }
+
+export interface RailDailyTrainInfo {
+  'NeedTime'?: string;
+  'TrainDate': '2019-12-04';
+  'DailyTrainInfo': {
+    'TrainNo': '3211',
+    'Direction': 1,
+    'StartingStationID': '4080',
+    'StartingStationName': {
+      'Zh_tw': '嘉義',
+      'En': 'Chiayi'
+    },
+    'EndingStationID': '5050',
+    'EndingStationName': {
+      'Zh_tw': '潮州',
+      'En': 'Chaozhou'
+    },
+    'TripHeadsign': '往潮州',
+    'TrainTypeID': '1131',
+    'TrainTypeCode': '6',
+    'TrainTypeName': {
+      'Zh_tw': '區間',
+      'En': 'Local Train'
+    },
+    'TripLine': 0,
+    'WheelchairFlag': 0,
+    'PackageServiceFlag': 0,
+    'DiningFlag': 0,
+    'BikeFlag': 1,
+    'BreastFeedingFlag': 0,
+    'DailyFlag': 1,
+    'ServiceAddedFlag': false,
+    'Note': {
+      'Zh_tw': '每日行駛。'
+    }
+  };
+  'OriginStopTime': {
+    'StopSequence': 19,
+    'StationID': '4290',
+    'StationName': {
+      'Zh_tw': '大湖',
+      'En': 'Dahu'
+    },
+    'ArrivalTime': '15:49',
+    'DepartureTime': '15:49'
+  };
+  'DestinationStopTime': {
+    'StopSequence': 43,
+    'StationID': '5050',
+    'StationName': {
+      'Zh_tw': '潮州',
+      'En': 'Chaozhou'
+    },
+    'ArrivalTime': '17:20',
+    'DepartureTime': '17:22'
+  };
+  'UpdateTime': '2019-11-27T12:22:01+08:00';
+  'VersionID': 8;
+}
