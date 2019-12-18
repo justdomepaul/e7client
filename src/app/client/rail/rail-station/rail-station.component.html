@@ -6,10 +6,10 @@
     <div *ngIf="motcService.RailGeneralTimetable !== undefined">
       <ng-container *ngFor="let StopTime of motcService.RailGeneralTimetable.GeneralTimetable.StopTimes">
         <mat-list-item>
-          <p [ngClass]="{'grey': motcService.nowTime > StopTime.ArrivalTime,'indigo': motcService.defaultStationID == StopTime.StationID}"
+          <p [ngClass]="{'grey': motcService.nowTime > StopTime.ArrivalTime,'indigo': motcService.stationID == StopTime.StationID}"
             style="margin: 0px;">
             {{StopTime.ArrivalTime}}-{{StopTime.StationName.Zh_tw}}
-            <span class="right" *ngIf="motcService.defaultStationID == StopTime.StationID">(本站)</span>
+            <span class="right" *ngIf="motcService.stationID == StopTime.StationID">(本站)</span>
           </p>
         </mat-list-item>
         <mat-divider></mat-divider>

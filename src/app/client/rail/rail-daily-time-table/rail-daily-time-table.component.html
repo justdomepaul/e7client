@@ -3,16 +3,16 @@
     <div class="flex-item">
       <mat-form-field>
         <mat-label>選擇縣市</mat-label>
-        <mat-select (selectionChange)="cityChange($event.value,'A')">
+        <mat-select (selectionChange)="cityChange($event.value,'A')" [(ngModel)]="trainINFO.city.A">
           <mat-option disabled>請選擇縣市</mat-option>
           <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>選擇車站</mat-label>
-        <mat-select #stationA [(ngModel)]="StationID['A']" name="StationIDA">
+        <mat-select #stationA [(ngModel)]="trainINFO.stationID['A']" name="StationIDA">
           <mat-option disabled>請選擇車站</mat-option>
-          <mat-option [value]="station.StationID" *ngFor="let station of RailStations['A']"
+          <mat-option [value]="station.StationID" *ngFor="let station of trainINFO.railStations['A']"
             [ngClass]="{'text-primary': station.StationClass <= 1}">
             {{station.StationName.Zh_tw}}
           </mat-option>
@@ -22,16 +22,16 @@
     <div class="flex-item">
       <mat-form-field>
         <mat-label>選擇縣市</mat-label>
-        <mat-select (selectionChange)="cityChange($event.value,'B')">
+        <mat-select (selectionChange)="cityChange($event.value,'B')" [(ngModel)]="trainINFO.city.B">
           <mat-option disabled>請選擇縣市</mat-option>
           <mat-option [value]="city" *ngFor="let city of motcService.citys">{{city}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>選擇車站</mat-label>
-        <mat-select #stationB [(ngModel)]="StationID['B']" name="StationIDB">
+        <mat-select #stationB [(ngModel)]="trainINFO.stationID['B']" name="StationIDB">
           <mat-option disabled>請選擇車站</mat-option>
-          <mat-option [value]="station.StationID" *ngFor="let station of RailStations['B']"
+          <mat-option [value]="station.StationID" *ngFor="let station of trainINFO.railStations['B']"
             [ngClass]="{'text-primary': station.StationClass <= 1}">
             {{station.StationName.Zh_tw}}
           </mat-option>
@@ -40,18 +40,13 @@
     </div>
   </div>
   <div class="flex-div">
-    <!-- <div class="flex-item">
-      <button mat-raised-button class="btn-block" color="primary"
-        (click)="motcService.DailyTimetable(stationA.value,stationB.value)">
-        <mat-icon>sync_alt</mat-icon>
-      </button>
-    </div> -->
-    <div class="flex-item">
-      <button mat-raised-button class="btn-block" color="primary"
-        (click)="motcService.DailyTimetable(StationID['A'],StationID['B'])">
-        <mat-icon>search</mat-icon>查詢
-      </button>
-    </div>
+    <button mat-raised-button class="btn-block flex-item" (click)="switchStation()">
+      <mat-icon>sync_alt</mat-icon>
+    </button>
+    <button mat-raised-button class="btn-block flex-item" color="primary"
+      (click)="motcService.DailyTimetable(trainINFO.stationID['A'],trainINFO.stationID['B'])">
+      <mat-icon>search</mat-icon>查詢
+    </button>
   </div>
 </div>
 
@@ -66,7 +61,8 @@
     <li>行車時間</li>
   </ul>
   <ng-container *ngFor="let RailDailyTrainInfo of motcService.RailDailyTrainInfos">
-    <ul class="RailDailyTrainInfos" (click)="openDialog(RailDailyTrainInfo.DailyTrainInfo.TrainNo)">
+    <ul class="RailDailyTrainInfos" (click)="openDialog(RailDailyTrainInfo.DailyTrainInfo.TrainNo)"
+      [ngClass]="{'grey': motcService.nowTime > RailDailyTrainInfo.OriginStopTime.ArrivalTime}">
       <li>
         {{RailDailyTrainInfo.DailyTrainInfo.TrainNo}}
       </li>

@@ -11,11 +11,12 @@ import { RailTrainTimeTableDialogComponent } from 'src/app/tools/dialog/rail-tra
   styleUrls: ['./rail-daily-time-table.component.scss']
 })
 export class RailDailyTimeTableComponent implements OnInit {
-  StationID = { A: '', B: '' };
-  RailStations: { [key: string]: RailStation[] } = {
-    A: [],
-    B: [],
+  trainINFO: { stationID, city: any; railStations: { [key: string]: RailStation[] } } = {
+    stationID: { A: '', B: '' },
+    railStations: { A: [], B: [] },
+    city: { A: '', B: '' },
   };
+
   constructor(
     public motcService: MotcService,
     public dialog: MatDialog,
@@ -27,24 +28,35 @@ export class RailDailyTimeTableComponent implements OnInit {
 
   openDialog(trainNo: string) {
     this.motcService.RailTRAGeneralTrainTimetableTrainNo(trainNo);
-    const dialogRef = this.dialog.open(RailTrainTimeTableDialogComponent, {
+    this.dialog.open(RailTrainTimeTableDialogComponent, {
       width: '80%',
       height: '80%',
-      data: this.StationID,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      data: this.trainINFO.stationID,
     });
   }
 
 
   cityChange(city, RailStations) {
     this.motcService.RailTRAStation(city).then((result) => {
-      this.RailStations[RailStations] = this.motcService.RailStations;
-      this.StationID[RailStations] = this.motcService.RailStations[0].StationID;
+      this.trainINFO.railStations[RailStations] = this.motcService.RailStations;
+      this.trainINFO.stationID[RailStations] = this.motcService.RailStations[0].StationID;
     }).catch((err) => {
 
     });
+  }
+
+  switchStation() {
+    // city
+    this.trainINFO.city.C = this.trainINFO.city.A;
+    this.trainINFO.city.A = this.trainINFO.city.B;
+    this.trainINFO.city.B = this.trainINFO.city.C;
+    // station
+    this.trainINFO.railStations.C = this.trainINFO.railStations.A;
+    this.trainINFO.railStations.A = this.trainINFO.railStations.B;
+    this.trainINFO.railStations.B = this.trainINFO.railStations.C;
+    // stationId
+    this.trainINFO.stationID.C = this.trainINFO.stationID.A;
+    this.trainINFO.stationID.A = this.trainINFO.stationID.B;
+    this.trainINFO.stationID.B = this.trainINFO.stationID.C;
   }
 }
