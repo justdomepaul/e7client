@@ -1,0 +1,47 @@
+<mat-vertical-stepper #stepper *ngIf="userPet.ok == 0">
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="flexC">
+        選擇領養的寵物 &nbsp;
+        <img [src]="petsList[radioGroup.value].image" width="35">
+      </div>
+    </ng-template>
+    <mat-radio-group #radioGroup="matRadioGroup" [(ngModel)]="userPet.petId">
+      <div class="flex-div">
+        <div class="flex-item" *ngFor="let pet of petsList;let i = index">
+          <mat-radio-button [value]="i" [ngClass]="{'d-none': pet.image ==''}" [checked]="i==0">
+            <img [src]="pet.image" class="img-rwd">
+            <p>{{pet.name}}</p>
+          </mat-radio-button>
+        </div>
+      </div>
+    </mat-radio-group>
+    <div>
+      <button mat-button matStepperNext>下一步</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>
+      寵物名稱 &nbsp;{{userPet.name}}
+    </ng-template>
+    <mat-form-field>
+      <input matInput placeholder="寵物名稱" required [(ngModel)]="userPet.name">
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>上一步</button>
+      <button mat-button matStepperNext [disabled]="userPet.name == ''" (click)="userPet.ok = 1">完成</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+
+<div class="container" *ngIf="userPet.ok == 1">
+  <div class="flex-div">
+    <div class="flex-item">
+      <img [src]="petsList[userPet.petId].image" class="img-rwd">
+    </div>
+    <div class="flex-item" style="padding: 15px;">
+      <p><img src="https://image.flaticon.com/icons/png/512/1130/1130910.png">{{petsList[userPet.petId].name}}</p>
+      <p>{{userPet.name}}</p>
+    </div>
+  </div>
+</div>

@@ -13,13 +13,21 @@
         <h4 mat-line [routerLink]="['/client','rail','railStation']" (click)="drawer.toggle()">車站查詢</h4>
       </mat-list-item>
       <mat-list-item>
-          <h4 mat-line [routerLink]="['/client','rail','railDailyTimeTable']" (click)="drawer.toggle()">列車時刻/車次查詢</h4>
-        </mat-list-item>
+        <h4 mat-line [routerLink]="['/client','rail','railDailyTimeTable']" (click)="drawer.toggle()">列車時刻/車次查詢</h4>
+      </mat-list-item>
       <mat-divider></mat-divider>
+      <div *ngIf="showCount >= 5">
+        <h3 mat-subheader>娛樂</h3>
+        <mat-list-item>
+          <h4 mat-line [routerLink]="['/client','games','pets']" class="flexC" (click)="drawer.toggle()">
+            <mat-icon class="mright">pets</mat-icon>養狗狗
+          </h4>
+        </mat-list-item>
+      </div>
       <div style="position: absolute;width: 100%;bottom: 0px;" *ngIf="showCount >= 5">
         <h3 mat-subheader>測試區域</h3>
         <mat-list-item>
-          <h4 mat-line [routerLink]="['/client','game','test']" (click)="drawer.toggle()">測試1</h4>
+          <h4 mat-line [routerLink]="['/client','games','test']" (click)="drawer.toggle()">測試1</h4>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>

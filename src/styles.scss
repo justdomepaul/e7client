@@ -38,6 +38,10 @@ body {
   margin-top: 15px;
 }
 
+.mright {
+  margin-right: 15px;
+}
+
 .btn-block {
   width: 100%;
 }
@@ -74,4 +78,17 @@ body {
 
 mat-drawer-container {
   height: 100vh;
+}
+
+.flexC {
+  align-items: center;
+  display: flex !important;
+}
+
+.img-rwd {
+  max-width: 100%;
+}
+
+.d-none {
+  display: none !important;
 }

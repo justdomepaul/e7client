@@ -4,6 +4,7 @@ import { RailStationComponent } from './rail/rail-station/rail-station.component
 import { BusRouteComponent } from './bus/bus-route/bus-route.component';
 import { ClientLayoutComponent } from './layout/client-layout/client-layout.component';
 import { TestComponent } from './games/test/test.component';
+import { PetsComponent } from './games/pets/pets.component';
 import { RailDailyTimeTableComponent } from './rail/rail-daily-time-table/rail-daily-time-table.component';
 
 const routes: Routes = [
@@ -13,7 +14,12 @@ const routes: Routes = [
       { path: 'rail/railStation', component: RailStationComponent },
       { path: 'rail/railDailyTimeTable', component: RailDailyTimeTableComponent },
       { path: 'bus/busRoute', component: BusRouteComponent },
-      { path: 'game/test', component: TestComponent },
+      {
+        path: 'games', children: [
+          { path: 'test', component: TestComponent },
+          { path: 'pets', component: PetsComponent },
+        ]
+      },
     ]
   },
 
