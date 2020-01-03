@@ -31,7 +31,7 @@ export class RouteGuardGuard implements CanActivate {
       this.router.navigate([next.queryParams.page], { queryParams: { ...next.queryParams } });
     }
     if (nowUrl === '/' && next.queryParams.page === undefined) {
-      this.router.navigateByUrl('/client/rail/railStation');
+      this.router.navigateByUrl('/client/rail/railDailyTimeTable');
     }
     return true;
   }

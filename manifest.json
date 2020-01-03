@@ -1,0 +1,35 @@
+{
+  "name": "e7clinet",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "<all_urls>",
+    "notifications"
+  ],
+  "options_page": "index.html",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "assets/images/osLOGO.png",
+      "32": "assets/images/osLOGO.png",
+      "48": "assets/images/osLOGO.png",
+      "128": "assets/images/osLOGO.png"
+    }
+  },
+  "icons": {
+    "16": "assets/images/osLOGO.png",
+    "32": "assets/images/osLOGO.png",
+    "48": "assets/images/osLOGO.png",
+    "128": "assets/images/osLOGO.png"
+  },
+  "manifest_version": 2
+}

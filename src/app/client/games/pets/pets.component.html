@@ -40,8 +40,20 @@
       <img [src]="petsList[userPet.petId].image" class="img-rwd">
     </div>
     <div class="flex-item" style="padding: 15px;">
-      <p><img src="https://image.flaticon.com/icons/png/512/1130/1130910.png">{{petsList[userPet.petId].name}}</p>
-      <p>{{userPet.name}}</p>
+      <p class="flexC">
+        <img width="40" src="https://image.flaticon.com/icons/png/512/1130/1130910.png">
+        &nbsp;&nbsp;{{petsList[userPet.petId].name}}
+      </p>
+      <p class="flexC">
+        <img width="40" src="https://image.flaticon.com/icons/png/512/2372/2372790.png">
+        &nbsp;&nbsp;{{userPet.name}}
+      </p>
     </div>
   </div>
+</div>
+
+<h3 style="text-align: center;">刮刮卡</h3>
+<div class="sc__wrapper">
+  <div id="js--sc--container" class="sc__container"></div>
+  <div class="sc__infos"></div>
 </div>
