@@ -50,44 +50,46 @@ export class PetsComponent implements OnInit, AfterViewInit {
   }
 
   createNewScratchCard() {
+
+
     setTimeout(() => {
       this.http.get('https://yesno.wtf/api').subscribe(
         (v: any) => {
           console.log('yesno', v);
 
-          const scContainer = document.getElementById('js--sc--container');
-          const scInfos = document.querySelector('.sc__infos');
-          const sc = new ScratchCard('#js--sc--container', {
-            scratchType: SCRATCH_TYPE.CIRCLE,
-            containerWidth: scContainer.offsetWidth,
-            containerHeight: 200,
-            // imageForwardSrc: 'assets/images/scratchcard.jpg',
-            imageForwardSrc: 'assets/images/scratchcard/scratchcardFANSbeeA.png',
-            imageBackgroundSrc: 'assets/images/scratchcard/scratchcardFANSbeeB.png',
-            // imageBackgroundSrc: v.image,
-            // htmlBackground: '<p>666 hihi</p>',
-            clearZoneRadius: 20,
-            nPoints: 0,
-            pointSize: 0,
-            callback: () => {
-              alert('刮到了 口頭獎勵-你好棒 一次');
-              // window.location.reload();
-            }
-          });
-
-          // Init
-          sc.init().then(() => {
-            sc.canvas.addEventListener('scratch.move', () => {
-              const percent = sc.getPercent().toFixed(0);
-              scInfos.innerHTML = percent + '%';
-              console.log(percent);
-            });
-          }).catch((error) => {
-            // image not loaded
-            alert(error.message);
-          });
         },
       );
+
+      const scContainer = document.getElementById('js--sc--container');
+      const scInfos = document.querySelector('.sc__infos');
+      const sc = new ScratchCard('#js--sc--container', {
+        scratchType: SCRATCH_TYPE.CIRCLE,
+        containerWidth: scContainer.offsetWidth,
+        containerHeight: 200,
+        // imageForwardSrc: 'assets/images/scratchcard.jpg',
+        imageForwardSrc: 'assets/images/scratchcard/scratchcardFANSbeeA.png',
+        imageBackgroundSrc: 'assets/images/scratchcard/scratchcardFANSbeeB.png',
+        // imageBackgroundSrc: v.image,
+        // htmlBackground: '<p>666 hihi</p>',
+        clearZoneRadius: 20,
+        nPoints: 0,
+        pointSize: 0,
+        callback: () => {
+          alert('刮到了 口頭獎勵-你好棒 一次');
+          // window.location.reload();
+        }
+      });
+      // Init
+      sc.init().then(() => {
+        sc.canvas.addEventListener('scratch.move', () => {
+          const percent = sc.getPercent().toFixed(0);
+          scInfos.innerHTML = percent + '%';
+          console.log(percent);
+        });
+      }).catch((error) => {
+        // image not loaded
+        alert(error.message);
+      });
 
     }, 0);
 
