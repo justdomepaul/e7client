@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="utf-8">
+  <title>E7client</title>
+  <base href="https://justdomepaul.github.io/e7client/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="assets/JOB.js"></script>
+  <script src="assets/exif.js"></script>
+  <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+  <script>
+    // init vConsole
+    // var vConsole = new VConsole();
+    // console.log('Hello world');
+  </script>
+  <style>
+    .loading {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      width: 3em;
+      margin: auto;
+      height: 100vh;
+    }
+
+    .loading>span {
+      width: 0.3em;
+      height: 1em;
+      background-color: #673ab7;
+    }
+
+    .loading>span:nth-of-type(1) {
+      animation: grow 1s -0.45s ease-in-out infinite;
+    }
+
+    .loading>span:nth-of-type(2) {
+      animation: grow 1s -0.3s ease-in-out infinite;
+    }
+
+    .loading>span:nth-of-type(3) {
+      animation: grow 1s -0.15s ease-in-out infinite;
+    }
+
+    .loading>span:nth-of-type(4) {
+      animation: grow 1s ease-in-out infinite;
+    }
+
+    @keyframes grow {
+
+      0%,
+      100% {
+        transform: scaleY(1);
+      }
+
+      50% {
+        transform: scaleY(2);
+      }
+    }
+  </style>
+<link rel="stylesheet" href="styles.d046a44eff19fbd084f5.css"></head>
+
+<body>
+  <app-root>
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </app-root>
+  <!-- <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script> -->
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<script src="runtime-es2015.12686f35a7c42f53f88e.js" type="module"></script><script src="polyfills-es2015.542631dca76648d5efd5.js" type="module"></script><script src="runtime-es5.540d04d608f2df0680e0.js" nomodule></script><script src="polyfills-es5.5a263fafea0e75638677.js" nomodule></script><script src="main-es2015.5b4590d657b4a2d3c899.js" type="module"></script><script src="main-es5.7c51ebc436a839d63e19.js" nomodule></script></body>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const liffId = urlParams.get('liffId');
+  liff.init({ liffId: liffId }).then(() => {
+    // Start to use liff's api
+    console.log('init okok');
+  }).catch((err) => {
+    // Error happens during initialization
+    console.log(err.code, err.message);
+  });
+</script>
+
+</html>
